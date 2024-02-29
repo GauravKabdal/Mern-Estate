@@ -41,7 +41,7 @@ const OAuth = () => {
       type="button"
       className="bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-75 hover:bg-white hover:text-red-700 hover:border-blue-700 hover:border"
     >
-      Continue to Google
+      Sign In with Google
     </button>
   );
 };

@@ -13,6 +13,9 @@ import {
   updateUserStart,
   updateUserFailure,
   updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 
 const Profile = () => {
@@ -90,6 +93,26 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+
+      const data = res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure());
+    }
+  };
+
   return (
     <div className="bg-cover bg-center bg-no-repeat bg-[url('./assets/profile_background.jpg')]">
       <div className="flex flex-col p-3 max-w-lg mx-auto ">
@@ -152,7 +175,10 @@ const Profile = () => {
             {loading ? "Loading..." : "Update"}
           </button>
           <div className="flex justify-between mt-1">
-            <span className="transition ease-in duration-500 text-red-700 cursor-pointer bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white">
+            <span
+              onClick={handleDeleteUser}
+              className="transition ease-in duration-500 text-red-700 cursor-pointer bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white"
+            >
               Delete Account
             </span>
             <span className="transition ease-in duration-500 text-red-700 cursor-pointer  bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white">
