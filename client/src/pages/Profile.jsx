@@ -21,6 +21,8 @@ import {
   signoutUserSuccess,
 } from "../redux/user/userSlice";
 
+import { Link } from "react-router-dom";
+
 const Profile = () => {
   const dispatch = useDispatch();
   const [filePerc, setFilePerc] = useState(0);
@@ -192,25 +194,31 @@ const Profile = () => {
           >
             {loading ? "Loading..." : "Update"}
           </button>
-          <div className="flex justify-between mt-1">
-            <span
-              onClick={handleDeleteUser}
-              className="transition ease-in duration-500 text-red-700 cursor-pointer bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white"
-            >
-              Delete Account
-            </span>
-            <span
-              onClick={handleSignOut}
-              className="transition ease-in duration-500 text-red-700 cursor-pointer  bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white"
-            >
-              Sign Out
-            </span>
-          </div>
-          {error && <p className="text-red-700 mt-3">{error}</p>}
-          {updateSuccess && (
-            <p className="text-green-700">Updated Successfully!!</p>
-          )}
+          <Link
+            className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:bg-white hover:text-green-700 font-medium transition duration-500 ease-in"
+            to={"/create-listing"}
+          >
+            Create Listing
+          </Link>
         </form>
+        <div className="flex justify-between mt-2">
+          <span
+            onClick={handleDeleteUser}
+            className="transition ease-in duration-500 text-red-700 cursor-pointer bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white"
+          >
+            Delete Account
+          </span>
+          <span
+            onClick={handleSignOut}
+            className="transition ease-in duration-500 text-red-700 cursor-pointer  bg-white rounded p-3 font-bold hover:bg-red-700 hover:text-white"
+          >
+            Sign Out
+          </span>
+        </div>
+        {error && <p className="text-red-700 mt-3">{error}</p>}
+        {updateSuccess && (
+          <p className="text-green-700">Updated Successfully!!</p>
+        )}
       </div>
     </div>
   );
